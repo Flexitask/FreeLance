@@ -1,8 +1,7 @@
-
 const {string, object}=require("zod");
 
 
-const developerschemaValidation= object({
+const userschemaValidation= object({
     username:string().max(8),
     email:string().email("Invalid Email address"),
     password:string()
@@ -14,4 +13,4 @@ const developerschemaValidation= object({
 })
 
 
-module.exports=developerschemaValidation;
+module.exports=usersachemaValidation
