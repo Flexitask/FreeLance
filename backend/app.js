@@ -15,13 +15,6 @@ const developer = require("./models/Developer");
 const client = require("./models/Client");
 const admin = require("./models/Admin");
 
-const {
-  uploadClientImage,
-  uploadDeveloperImage,
-  uploadClientZip,
-  uploadDeveloperZip,
-} = require("./config/cloudConfig");
-
 mongoose.connect("mongodb://127.0.0.1:27017/dummy");
 
 let app = express();
