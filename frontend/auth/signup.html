@@ -10,17 +10,21 @@
 <div class="row">
     <div class="col-8 offset-2">
         <br><br>
-    <h1>Welcome back</h1>
-    <form method="post" action="/login" novalidate class="needs-validation">
+    <h1>Join us today!!</h1>
+    <form method="post" action="/developer/upload" novalidate class="needs-validation" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="email" class="form-label">E-mail:</label>
+            <label for="email" class="form-label">E-mail: </label>
             <input name="email" placeholder="enter your email" class="form-control" required>
             <!-- <div class="valid-feedback">
                 Title Looks Good!
             </div> -->
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Password: </label>
+            <label for="username" class="form-label">Username: </label>
+            <input name="username" placeholder="enter username" class="form-control" type="text" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Enter Password: </label>
             <input name="password" placeholder="enter password" class="form-control" type="password" required>
         </div>
         <div class="input-group mb-3">
@@ -33,7 +37,7 @@
             </select>
         </div>
         <br>
-        <button class="btn btn-dark add-btn">LogIn</button>
+        <button class="btn btn-dark add-btn">Sign-up</button>
         <br><br>
     </form>
     </div>
