@@ -8,12 +8,7 @@ const DeveloperSchema = new Schema({
        required: true,
     },
     image :{
-        url : String,
-        filename : String,
-    },
-    image :{
-        url : String,
-        filename : String,
+        type : String,
     },
     work_exp : [
         {
@@ -24,6 +19,7 @@ const DeveloperSchema = new Schema({
     email : {
         type : String,
         required : true,
+        unique : true,
     },
     password : {
         type : String,

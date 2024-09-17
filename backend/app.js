@@ -52,21 +52,16 @@ app.post("/api/admin/:admin_id", async (req, res) => {
   res.send(p);
 });
 app.route("/developer/upload").get((req,res)=>{
-  res.sendFile("D:/flexitask/frontend/form.html")
-}).post(upload.single('image'), async (req, res) => {
-  //   const newDev = new Developer(req.body.dev);
-  //  / let url = req.file.path;
-  //   // let fileName =
-  //   newDev.image = url;
-  //   await newDev.save(); 
-  console.log(req.body.first);
-  // const newUser = developer(req.body.dev)
-  // await 
-  if(req.file){
-    res.send("File uploaded ")
-  }
+  res.sendFile("D:/flexitask/frontend/Developer/devprofile.html")
+}).post(upload.single('dev[image]'), async (req, res) => {
+  const updateUser= new developer(req.body.dev);
+  updateUser.image=req.file.path;
+  await updateUser.save();
+  console.log(updateUser);
+  res.send("User updation successful");
   
 });
+
 app.route("/signup").get((req, res) => {
 
 })
