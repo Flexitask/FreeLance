@@ -18,10 +18,6 @@ const AdminSchema = new Schema({
         type : String,
         required : true,
     },
-    revenue : {
-        type : Number,
-        required : true,
-    }
 })
 
 const Admin = mongoose.model("Admin",AdminSchema);

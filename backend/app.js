@@ -14,14 +14,6 @@ const multer = require('multer');
 const { storage } = require("./config/cloudConfig");
 const upload = multer({storage});
 
-
-// const {
-//   uploadClientImage,
-//   uploadDeveloperImage,
-//   uploadClientZip,
-//   uploadDeveloperZip,
-// } = require("./config/cloudConfig");
-const Developer = require("./models/Developer");
 mongoose.connect("mongodb://127.0.0.1:27017/dummy");
 require("dotenv").config();
 let app = express();
@@ -57,7 +49,7 @@ app.route("/developer/upload").get((req,res)=>{
   res.sendFile(app.get('frontend')+"/Developer/devprofile.html");
   //frontend\Developer\devprofile.html
 }).post(upload.single('dev[image]'), async (req, res) => {
-  const updateUser= new Developer(req.body.dev);
+  const updateUser= new developer(req.body.dev);
   updateUser.image=req.file.path;
   await updateUser.save();
   console.log(updateUser);
