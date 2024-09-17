@@ -13,6 +13,11 @@ const ProjectSchema = new Schema({
     price : {
         type: Number,
         required: true, 
+    },
+    plan : {
+        type : String,
+        required : true,
+        enum : ["Basic", "Premium"],
     }
 })
 
