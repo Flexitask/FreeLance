@@ -1,18 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Chat= require("./Chat");
 
 const DeveloperSchema = new Schema({
   username: {
     type: String,
     required: true,
-  },
-  image: {
-    url: String,
-    filename: String,
-  },
-  image: {
-    url: String,
-    filename: String,
   },
   work_exp: [
     {
@@ -44,8 +37,11 @@ const DeveloperSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Project",
+    }],
+    image :{
+        type : String,
     },
-  ],
+   
   messages: [
     {
       type: Schema.Types.ObjectId,
@@ -60,11 +56,12 @@ const DeveloperSchema = new Schema({
   ],
 });
 
-DeveloperSchema.post("findOneAndDelete", async (listing) => {
-  if (Developer) {
-    await Chat.deleteMany({ _id: { $in: Developer.messages } });
-  }
-}); // to automatically delete all the messages on deletion of developer profile
+
+DeveloperSchema.post("findOneAndDelete",async (Developer)=>{
+    if(Developer){
+        await Chat.deleteMany({_id : {$in: Developer.messages}});
+    }
+}) // to automatically delete all the messages on deletion of developer profile
 
 const Developer = mongoose.model("Developer", DeveloperSchema);
 module.exports = Developer;
