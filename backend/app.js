@@ -168,30 +168,44 @@ app
       }
     });
   
-  app.route('/login')
-    .get((req, res) => {
-      // Handle GET request if needed
-    })
-    .post(async (req, res) => {
-      const token = req.signedCookies.TOKEN;
-      if (!token) {
-        return res.redirect('/signup');
-      }
-      try {
-        const decode = jwt.verify(token, process.env.JWT_KEY);
-        const email = decode.email;
-        const pass = decode.password;
-        const category = decode.category;
-  
-  
-        // If the operation is successful, you can proceed
-        res.send('Login successful');
-      } catch (e) {
-        res.send('invalid token, please try again later');
-      }
-    });
-  
-  module.exports = app;
+app.route('/login')
+      .get((req, res) => {
+        // Handle GET request if needed
+        res.send('Login page');
+      })
+      .post(async (req, res) => {
+        const token = req.signedCookies.TOKEN;
+        if (!token) {
+          return res.redirect('/signup');
+        }
+        try {
+          const decode = jwt.verify(token, process.env.JWT_KEY);
+          const email = decode.email;
+          const pass = decode.password;
+          const category = decode.category;
+    
+          // Find the user in the database
+          let user;
+          if (category === 'developer') {
+            user = await developer.findOne({ email, password: pass });
+          } else if (category === 'client') {
+            user = await client.findOne({ email, password: pass });
+          } else if (category === 'admin') {
+            user = await admin.findOne({ email, password: pass });
+          } else {
+            return res.send('Invalid category');
+          }
+    
+          if (!user) {
+            return res.send('Invalid credentials');
+          }
+    
+          // If the operation is successful, you can proceed
+          res.send('Login successful');
+        } catch (e) {
+          res.send('Invalid token, please try again later');
+        }
+      });
 
 
 app.route("");
