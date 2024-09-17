@@ -8,22 +8,24 @@ const developer = require("./models/Developer");
 const client = require("./models/Client");
 const admin = require("./models/Admin");
 const fs = require("fs");
+const path=require('path')
 
 const multer = require('multer');
 const { storage } = require("./config/cloudConfig");
 const upload = multer({storage});
 
 
-const {
-  uploadClientImage,
-  uploadDeveloperImage,
-  uploadClientZip,
-  uploadDeveloperZip,
-} = require("./config/cloudConfig");
+// const {
+//   uploadClientImage,
+//   uploadDeveloperImage,
+//   uploadClientZip,
+//   uploadDeveloperZip,
+// } = require("./config/cloudConfig");
 const Developer = require("./models/Developer");
 mongoose.connect("mongodb://127.0.0.1:27017/dummy");
 require("dotenv").config();
 let app = express();
+app.set('frontend', path.join(__dirname, '../frontend'));
 app.use(express.json());
 app.use(cors());
 app.use(cookie());
@@ -52,9 +54,10 @@ app.post("/api/admin/:admin_id", async (req, res) => {
   res.send(p);
 });
 app.route("/developer/upload").get((req,res)=>{
-  res.sendFile("D:/flexitask/frontend/Developer/devprofile.html")
+  res.sendFile(app.get('frontend')+"/Developer/devprofile.html");
+  //frontend\Developer\devprofile.html
 }).post(upload.single('dev[image]'), async (req, res) => {
-  const updateUser= new developer(req.body.dev);
+  const updateUser= new Developer(req.body.dev);
   updateUser.image=req.file.path;
   await updateUser.save();
   console.log(updateUser);
