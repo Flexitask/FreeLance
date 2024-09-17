@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelancer Login Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+ background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .login-container {
+      max-width: 450px;
+      margin: 100px auto;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid #034202;
+    }
+    .btn-google {
+      background-color: #fe424d;
+      color: white;
+    }
+    .form-control {
+      border-radius: 30px;
+    }
+    .nav-tabs .nav-link.active {
+      background-color: #335375;
+      color: white;
+      border-radius: 30px;
+    }
+    .nav-tabs .nav-link {
+      border-radius: 30px;
+      color: #007bff;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <div class="login-container">
+    <ul class="nav nav-tabs mb-3" id="login-signup-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="sign-in-tab" data-bs-toggle="tab" href="#sign-in" role="tab" aria-controls="sign-in" aria-selected="true">Sign In</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="sign-up-tab" data-bs-toggle="tab" href="#sign-up" role="tab" aria-controls="sign-up" aria-selected="false">Sign Up</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <!-- Sign In Form -->
+      <div class="tab-pane fade show active" id="sign-in" role="tabpanel" aria-labelledby="sign-in-tab">
+        <form id="signInForm" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+            <div class="invalid-feedback">
+              Please enter your username.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+            <div class="invalid-feedback">
+
+              Please enter your password.
+            </div>
+            <div class ="Valid-feedback">
+                Looks Good!
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+          <hr>
+          <button type="button" class="btn btn-google w-100"><i class="fa-brands fa-google"></i> Continue with Google</button>
+        </form>
+      </div>
+      <!-- Sign Up Form -->
+      <div class="tab-pane fade" id="sign-up" role="tabpanel" aria-labelledby="sign-up-tab">
+        <form id="signUpForm" novalidate>
+          <div class="mb-3">
+            <label for="signup-username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="signup-username" placeholder="Enter username" required>
+            <div class="invalid-feedback">
+              Please enter a username.
+            </div>
+            <div class="valid-feedback">
+                Unique!
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" pattern="[a-z0-9._%+-]+@gmail\.com$" required>
+            <div class="invalid-feedback">
+              Please enter a valid Gmail address.
+            </div>
+            <div class="valid-feedback">
+                Strong Account!
+    
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="signup-password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signup-password" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" required>
+            <div class="invalid-feedback">
+              Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password" required>
+            <div class="invalid-feedback" id="password-mismatch-feedback">
+              Passwords do not match.
+            </div>
+            <div class = "valid-feedback">
+                Passwords matched!
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+          <hr>
+          <button type="button" class="btn btn-google w-100">Continue with Google</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      'use strict'
+      const signInForm = document.getElementById('signInForm');
+      const signUpForm = document.getElementById('signUpForm');
+      const password = document.getElementById('signup-password');
+      const confirmPassword = document.getElementById('confirm-password');
+      const passwordMismatchFeedback = document.getElementById('password-mismatch-feedback');
+      signInForm.addEventListener('submit', function (event) {
+        if (!signInForm.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        signInForm.classList.add('was-validated');
+      }, false);
+      signUpForm.addEventListener('submit', function (event) {
+        if (!signUpForm.checkValidity() || password.value !== confirmPassword.value) {
+          event.preventDefault();
+          event.stopPropagation();
+          if (password.value !== confirmPassword.value) {
+            confirmPassword.classList.add('is-invalid');
+            passwordMismatchFeedback.style.display = 'block';
+          } else {
+            confirmPassword.classList.remove('is-invalid');
+            passwordMismatchFeedback.style.display = 'none';
+          }
+        }
+        signUpForm.classList.add('was-validated');
+      }, false);
+    })();
+  </script>
+</body>
+</html>
