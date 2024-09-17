@@ -15,10 +15,13 @@ const developer = require("./models/Developer");
 const client = require("./models/Client");
 const admin = require("./models/Admin");
 
+const path=require('path')
+
 mongoose.connect("mongodb://127.0.0.1:27017/dummy");
 
 let app = express();
 
+app.set('frontend', path.join(__dirname, '../frontend'));
 app.use(express.json());
 app.use(cors());
 app.use(cookie());
@@ -46,24 +49,18 @@ app.post("/api/admin/:admin_id", async (req, res) => {
   let p = await admin.find({ _id: req.params.admin_id });
   res.send(p);
 });
-app
-  .route("/developer/upload")
-  .get((req, res) => {
-    res.sendFile("D:/flexitask/frontend/form.html");
-  })
-  .post(upload.single("image"), async (req, res) => {
-    //   const newDev = new Developer(req.body.dev);
-    //  / let url = req.file.path;
-    //   // let fileName =
-    //   newDev.image = url;
-    //   await newDev.save();
-    console.log(req.body.first);
-    // const newUser = developer(req.body.dev)
-    // await
-    if (req.file) {
-      res.send("File uploaded ");
-    }
-  });
+
+app.route("/developer/upload").get((req,res)=>{
+  res.sendFile(app.get('frontend')+"/Developer/devprofile.html");
+  //frontend\Developer\devprofile.html
+}).post(upload.single('dev[image]'), async (req, res) => {
+  const updateUser= new Developer(req.body.dev);
+  updateUser.image=req.file.path;
+  await updateUser.save();
+  console.log(updateUser);
+  res.send("User updated");
+  
+});
 
   app.route('/signup')
     .get((req, res) => {
