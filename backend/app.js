@@ -58,7 +58,7 @@ app.route("/developer/upload").get((req,res)=>{
   updateUser.image=req.file.path;
   await updateUser.save();
   console.log(updateUser);
-  res.send("User updation successful");
+  res.send("User updated");
   
 });
 
