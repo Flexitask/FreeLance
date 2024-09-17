@@ -8,10 +8,6 @@ const DeveloperSchema = new Schema({
        required: true,
     },
     image :{
-        url : String,
-        filename : String,
-    },
-    image :{
         type : String,
     },
     work_exp : [
