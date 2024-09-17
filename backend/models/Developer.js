@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
 const Schema = mongoose.Schema;
+const Chat= require("./Chat");
 
 const DeveloperSchema = new Schema({
     username :{
@@ -59,7 +60,7 @@ const DeveloperSchema = new Schema({
     ],
 })
 
-DeveloperSchema.post("findOneAndDelete",async (listing)=>{
+DeveloperSchema.post("findOneAndDelete",async (Developer)=>{
     if(Developer){
         await Chat.deleteMany({_id : {$in: Developer.messages}});
     }

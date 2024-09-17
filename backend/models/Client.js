@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
 const Schema = mongoose.Schema;
+const Chat = require("./Chat")
 
 const ClientSchema = new Schema({
     username :{
