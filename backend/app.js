@@ -193,9 +193,6 @@ app
         return res.status(403).json({ message: "Invalid credentials" });
       }
 
-      console.log(user.password);
-      console.log(password);
-
       const isCorrect = await bcrypt.compare(password, user.password);
       
       if (!isCorrect) {
@@ -226,12 +223,20 @@ app
         // sameSite, secure
       });
       console.log("token generated successfully 4");
-      return res.status(200).json({ message: "Login successful" });
+      return res.status(200).json({ message: "Login successful", token });
     } catch (e) {
       console.error(e);
       return res.send("Invalid token, please try again later");
     }
   });
+
+  app.route('/logout').get((req, res, next) => {
+    res.clearCookie('TOKEN', {
+      path: '/',
+      domain: process.env.BACKEND_DOMAIN,
+    })
+    return res.status(200).json({ message: 'Logged out successfully' })
+  })
 
 app.route("");
 app.listen(3000);
