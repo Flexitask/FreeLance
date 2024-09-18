@@ -14,8 +14,10 @@ const signup = require("./schema_validation/signup");
 const developer = require("./models/Developer");
 const client = require("./models/Client");
 const admin = require("./models/Admin");
+const { verifyToken } = require("./middleware/token-manager");
 
 const path = require("path");
+const { verify } = require("crypto");
 
 mongoose.connect("mongodb://127.0.0.1:27017/dummy");
 
@@ -27,7 +29,7 @@ app.use(cors());
 app.use(cookie(process.env.COOKIE_KEY));
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/api/search/:name", async (req, res) => {
+app.post("/api/search/:name", verifyToken, async (req, res) => {
   try {
     const products = await category.find({
       productName: { $regex: req.params.name, $options: "i" },
@@ -37,15 +39,15 @@ app.post("/api/search/:name", async (req, res) => {
     res.status(500).json({ msg: e.message });
   }
 });
-app.post("/api/developer/:dev_id", async (req, res) => {
+app.post("/api/developer/:dev_id", verifyToken, async (req, res) => {
   let p = await developer.find({ _id: req.params.dev_id });
   res.send(p);
 });
-app.post("/api/client/:client_id", async (req, res) => {
+app.post("/api/client/:client_id", verifyToken, async (req, res) => {
   let p = await client.find({ _id: req.params.client_id });
   res.send(p);
 });
-app.post("/api/admin/:admin_id", async (req, res) => {
+app.post("/api/admin/:admin_id", verifyToken, async (req, res) => {
   let p = await admin.find({ _id: req.params.admin_id });
   res.send(p);
 });
@@ -56,7 +58,7 @@ app
     res.sendFile(app.get("frontend") + "/Developer/devprofile.html");
     //frontend\Developer\devprofile.html
   })
-  .post(upload.single("dev[image]"), async (req, res) => {
+  .post(verifyToken, upload.single("dev[image]"), async (req, res) => {
     const updateUser = new developer(req.body.dev);
     updateUser.image = req.file.path;
     await updateUser.save();
@@ -133,7 +135,7 @@ app
         {
           email: newUser.email,
           password: newUser.password,
-          category:category,
+          category: category,
         },
         process.env.JWT_KEY,
         {
@@ -175,7 +177,7 @@ app
       const category = req.body.category;
 
       if (!email || !password || !category) {
-        console.log("Invalid credentials in 1");        
+        console.log("Invalid credentials in 1");
         return res.status(403).json({ message: "Invalid credentials" });
       }
 
@@ -188,13 +190,13 @@ app
         user = await admin.findOne({ email });
       }
 
-      if (!user) {  
+      if (!user) {
         console.log("Invalid credentials in 2");
         return res.status(403).json({ message: "Invalid credentials" });
       }
 
       const isCorrect = await bcrypt.compare(password, user.password);
-      
+
       if (!isCorrect) {
         console.log("Invalid credentials in 3");
         return res.status(403).json({ message: "Invalid credentials" });
@@ -204,7 +206,7 @@ app
         {
           email: user.email,
           password: user.password,
-          category:category,
+          category: category,
         },
         process.env.JWT_KEY,
         {
@@ -230,13 +232,13 @@ app
     }
   });
 
-  app.route('/logout').get((req, res, next) => {
-    res.clearCookie('TOKEN', {
-      path: '/',
-      domain: process.env.BACKEND_DOMAIN,
-    })
-    return res.status(200).json({ message: 'Logged out successfully' })
-  })
+app.route("/logout").get(verifyToken, (req, res, next) => {
+  res.clearCookie("TOKEN", {
+    path: "/",
+    domain: process.env.BACKEND_DOMAIN,
+  });
+  return res.status(200).json({ message: "Logged out successfully" });
+});
 
 app.route("");
 app.listen(3000);
