@@ -9,23 +9,16 @@ let signup = zod.object({
     .regex(/[a-z]/, "Password must contain at least one lowercase letter") // At least one lowercase letter
     .regex(/\d/, "Password must contain at least one number") // At least one number
     .regex(/[\W_]/, "Password must contain at least one special character"),
-<<<<<<< HEAD
-  firstname: zod
-    .string()
-    .min(2, "first name should be atleast of 2 charcacters long")
-    .max(15, "maximum of 15 charcter allowed"),
-  lastname: zod
-    .string()
-    .min(2, "last name should be atleast of 2 charcacters long")
-    .max(15, "maximum of 15 charcter allowed"),
+  // firstname: zod
+  //   .string()
+  //   .min(2, "first name should be atleast of 2 charcacters long")
+  //   .max(15, "maximum of 15 charcter allowed"),
+  // lastname: zod
+  //   .string()
+  //   .min(2, "last name should be atleast of 2 charcacters long")
+  //   .max(15, "maximum of 15 charcter allowed"),
     category: zod.string(),
+    username: zod.string(),
 });
 module.exports = signup;
-=======
-    firstname:zod.string().min(2,"first name should be atleast of 2 charcacters long")
-    .max(15,"maximum of 15 charcter allowed"),
-    lastname:zod.string().min(2,"last name should be atleast of 2 charcacters long")
-    .max(15,"maximum of 15 charcter allowed")
-})
-module.exports=signin;
->>>>>>> 893ed68b2a9c2f0c382c4f0e2a6a340f421211ec
+
