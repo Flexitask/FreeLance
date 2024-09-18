@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Client Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex flex-col h-screen">
+        <!-- Navbar -->
+        <nav id="top-nav" class="bg-gray-100 shadow-md p-4 md:flex items-center justify-between hidden">
+            <div class="flex items-center">
+                <img src="/images/logo.png" alt="Logo" class="w-16 h-16 mr-4">
+                <h1 class="text-2xl font-bold">Client Portal</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-700 hover:text-blue-500">Home</a>
+                <a href="#" class="text-gray-700 hover:text-blue-500">About</a>
+                <a href="#" class="text-gray-700 hover:text-blue-500">Services</a>
+                <a href="#" class="text-gray-700 hover:text-blue-500">Contact</a>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Log Out</button>
+            </div>
+        </nav>
+
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-gray-100 w-64 flex-shrink-0 hidden md:block overflow-y-auto">
+                <div class="p-4">
+                    <h3 class="text-2xl font-bold mb-8 text-gray-800">Client Portal</h3>
+                    <ul>
+                        <li class="mb-4"><a href="new.html" class="text-gray-700 hover:text-blue-500">Dashboard</a></li>
+                        <li class="mb-4"><a href="clientproject.html" class="text-blue-500 font-semibold">Projects</a></li>
+                        <li class="mb-4"><a href="messages.html" class="text-gray-700 hover:text-blue-500">Messages</a></li>
+                        <li class="mb-4"><a href="invoice.html" class="text-gray-700 hover:text-blue-500">Invoices</a></li>
+                        <li class="mb-4"><a href="settings.html" class="text-gray-700 hover:text-blue-500">Settings</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <!-- Menu toggle button -->
+                <button id="menu-toggle" class="md:hidden rounded-lg shadow-md fixed top-4 left-4 z-50 bg-white-100 text-black-500 p-2 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+
+                <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-8 rounded-lg shadow-md mb-8">
+                    <h2 class="text-3xl font-bold mb-4">Projects</h2>
+                    <button class="bg-white text-blue-700 px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-300">Create New Project</button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Active Projects -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">Active Projects</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center">
+                                <span>Website Redesign</span>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">In Progress</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span>Mobile App Development</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm">On Hold</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span>E-commerce Platform</span>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">Planning</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Completed Projects -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">Completed Projects</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center">
+                                <span>Brand Identity Design</span>
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">Completed</span>
+                            </li>
+                            <li class="flex justify-between items-center">
+                                <span>Social Media Campaign</span>
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-sm">Completed</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project Timeline -->
+                <div class="mt-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">Project Timeline</h3>
+                        <div class="relative">
+                            <div class="absolute left-0 w-1 bg-blue-200 h-full"></div>
+                            <ul class="space-y-6">
+                                <li class="ml-6">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-500 rounded-full h-4 w-4 absolute -left-2"></div>
+                                        <h4 class="font-medium">Website Redesign - Phase 1 Complete</h4>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-1">2 days ago</p>
+                                </li>
+                                <li class="ml-6">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-500 rounded-full h-4 w-4 absolute -left-2"></div>
+                                        <h4 class="font-medium">Mobile App Development - Sprint 3 Started</h4>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-1">1 week ago</p>
+                                </li>
+                                <li class="ml-6">
+                                    <div class="flex items-center">
+                                        <div class="bg-blue-500 rounded-full h-4 w-4 absolute -left-2"></div>
+                                        <h4 class="font-medium">E-commerce Platform - Requirements Gathered</h4>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-1">2 weeks ago</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const topNav = document.getElementById('top-nav');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            topNav.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
+            <div class="flex items-center justify-between">
+                <div>
+                    <img src="/images/logo.png" alt="Logo" class="w-16 h-16">
+                </div>
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="toggle menu">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                            <path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="md:flex items-center hidden">
+                <div class="flex flex-col md:flex-row md:mx-6">
+                    <a class="my-1 text-sm text-gray-700 font-medium hover:text-blue-500 md:mx-4 md:my-0" href="#">Home</a>
+                    <a class="my-1 text-sm text-gray-700 font-medium hover:text-blue-500 md:mx-4 md:my-0" href="#">About</a>
+                    <a class="my-1 text-sm text-gray-700 font-medium hover:text-blue-500 md:mx-4 md:my-0" href="#">Services</a>
+                    <a class="my-1 text-sm text-gray-700 font-medium hover:text-blue-500 md:mx-4 md:my-0" href="#">Contact</a>
+                </div>
+                <div class="relative">
+                    <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40" placeholder="Search">
+                    <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <a href="#" class="my-1 text-sm text-gray-700 font-medium hover:text-blue-500 md:mx-4 md:my-0">Log in</a>
+                <a href="#" class="my-1 text-sm bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 md:mx-4 md:my-0">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8 mt-24">
+        <h1 class="text-4xl font-bold mb-8">Learning Pathway</h1>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="domain bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">NodeJS</h2>
+                <div class="grid gap-4">
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Learn and Understand NodeJS</h3>
+                        <p class="text-sm text-gray-600 mb-4">Understand the core concepts of NodeJS.</p>
+                        <a href="https://www.udemy.com/course/understand-nodejs/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">The Complete Node.js Developer Course</h3>
+                        <p class="text-sm text-gray-600 mb-4">A comprehensive guide to becoming a Node.js developer.</p>
+                        <a href="https://www.udemy.com/course/the-complete-nodejs-developer-course-2/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Node.js, Express, MongoDB Bootcamp</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn how to create back-end applications using Node.js, Express, and MongoDB.</p>
+                        <a href="https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Node with React: Fullstack Development</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn how to integrate Node.js with React to build fullstack web applications.</p>
+                        <a href="https://www.udemy.com/course/node-with-react-fullstack-web-development/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                </div>
+            </div>
+            <div class="domain bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">JavaScript</h2>
+                <div class="grid gap-4">
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">JavaScript for Beginners</h3>
+                        <p class="text-sm text-gray-600 mb-4">A complete introduction to JavaScript for beginners.</p>
+                        <a href="https://www.udemy.com/course/javascript-for-beginners-the-complete-introduction-to-js/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Master JavaScript: Basics to Advanced</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn JavaScript from the basics to advanced concepts.</p>
+                        <a href="https://www.udemy.com/course/javascript-basics-to-advanced/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">JavaScript: Understanding the Weird Parts</h3>
+                        <p class="text-sm text-gray-600 mb-4">Dive deep into JavaScript's unique and advanced parts.</p>
+                        <a href="https://www.udemy.com/course/understand-javascript/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Modern JavaScript From The Beginning</h3>
+                        <p class="text-sm text-gray-600 mb-4">Master modern JavaScript, starting from the basics to the latest features.</p>
+                        <a href="https://www.udemy.com/course/modern-javascript-from-the-beginning/" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                </div>
+            </div>
+            <div class="domain bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">Basic HTML and CSS</h2>
+                <div class="grid gap-4">
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">HTML and CSS in Depth</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn HTML and CSS thoroughly, with hands-on projects.</p>
+                        <a href="https://www.coursera.org/learn/html-and-css-in-depth" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">HTML, CSS, and JavaScript for Web Developers</h3>
+                        <p class="text-sm text-gray-600 mb-4">Understand the fundamentals of web development using HTML, CSS, and JavaScript.</p>
+                        <a href="https://www.coursera.org/learn/html-css-javascript-for-web-developers" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Learn HTML and CSS</h3>
+                        <p class="text-sm text-gray-600 mb-4">Begin your journey with HTML and CSS through this comprehensive course.</p>
+                        <a href="https://www.coursera.org/learn/learn-html-and-css" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Introduction to CSS3</h3>
+                        <p class="text-sm text-gray-600 mb-4">Get an introduction to advanced CSS concepts and techniques.</p>
+                        <a href="https://www.coursera.org/learn/introcss" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                </div>
+            </div>
+            <div class="domain bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-600">MongoDB</h2>
+                <div class="grid gap-4">
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Introduction to MongoDB</h3>
+                        <p class="text-sm text-gray-600 mb-4">Get started with MongoDB and learn its fundamental concepts.</p>
+                        <a href="https://www.coursera.org/learn/introduction-to-mongodb" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">Node.js & MongoDB: Developing Back-end Database Applications</h3>
+                        <p class="text-sm text-gray-600 mb-4">Develop back-end applications with Node.js and MongoDB.</p>
+                        <a href="https://coursera.org/learn/intermediate-back-end-development-with-node-js-mongodb" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">MongoDB Aggregation Framework</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn to use the MongoDB Aggregation Framework for data analysis.</p>
+                        <a href="https://www.coursera.org/learn/mongodb-aggregation-framework" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                    <div class="course-card bg-gray-50 p-4 rounded-md transition-all duration-300 hover:shadow-lg">
+                        <h3 class="text-lg font-medium mb-2">ILT: MDB100: MongoDB Database and Security</h3>
+                        <p class="text-sm text-gray-600 mb-4">Understand MongoDB database management and security practices.</p>
+                        <a href="https://learn.mongodb.com/courses/mdb100-mongodb-database-and-security" class="text-blue-500 hover:text-blue-600 text-sm font-medium">Go to Course</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const menuButton = document.querySelector('button[aria-label="toggle menu"]');
+        const menu = document.querySelector('.md\\:flex');
+
+        menuButton.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

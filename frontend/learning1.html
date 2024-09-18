@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path</title>
+
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Custom Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    color: #333;
+}
+
+.learning-path-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin-top: 10px; /* Added margin to prevent overlapping */
+}
+
+.domain {
+    width: 45%;
+    margin: 20px 0;
+}
+
+.domain h2 {
+    text-align: center;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+.course-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.course-card {
+    position: relative;
+    width: 200px;
+    height: 120px; /* Increased height for better content fit */
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+}
+
+.course-card:hover {
+    width: 220px;
+    height: 240px; /* Increased height to ensure enough space for button */
+    cursor: pointer;
+}
+
+.course-card h3 {
+    text-align: center;
+    color: #333;
+    padding: 15px;
+    margin: 0;
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+}
+
+.course-card .description {
+    display: none;
+    padding: 15px; /* Increased padding */
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+    height: calc(100% - 60px); /* Adjust height based on card height */
+    overflow: auto; /* Adds scroll if text is too long */
+}
+
+.course-card .button-container {
+    display: none;
+    position: absolute; /* Positioned absolutely to ensure it's within the card */
+    bottom: 10px; /* Position at the bottom of the card */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust position to be centered */
+    width: calc(100% - 20px); /* Full width of the card minus padding */
+    text-align: center;
+    padding: 0 10px; /* Padding for spacing */
+}
+
+.course-card:hover .description,
+.course-card:hover .button-container {
+    display: block;
+}
+
+.course-card button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.course-card button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .learning-path-container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px; /* Adjusted margin for smaller screens */
+    }
+
+    .domain {
+        width: 80%;
+    }
+
+    .course-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Navbar -->
+    <div class="fixed top-0 left-0 w-full text-black z-50 bg-gray-100">
+        <div class="flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
+            <!-- Logo -->
+            <div class="flex items-center space-x-4">
+                <img src="/images/logo.png" alt="Logo" class="w-16 h-16">
+            </div>
+
+            <!-- Desktop Navigation Links and Search Bar -->
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="flex space-x-4">
+                    <b>
+                        <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Home</a>
+                        <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">About</a>
+                        <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Services</a>
+                        <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Contact</a>
+                    </b>
+                </div>
+                <div class="relative flex items-center">
+                    <input type="text" placeholder="Search" class="bg-white text-gray-900 px-16 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                    <button class="absolute inset-y-0 right-0 px-4 py-2 text-white bg-blue-600 rounded-r-md hover:bg-blue-700">
+                        <!-- Search Icon -->
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#" class="text-black px-4 py-2 rounded-lg hover:bg-gray-300"><b>Log in</b></a>
+                <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"><b>Sign Up</b></a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button id="menu-button" class="text-gray-900 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-16 left-0 w-full bg-white shadow-md z-40 md:hidden hidden">
+        <div class="flex flex-col px-6 py-4 mx-auto max-w-7xl">
+            <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Home</a>
+            <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">About</a>
+            <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Services</a>
+            <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500">Contact</a>
+            <div class="relative mt-4">
+                <input type="text" placeholder="Search" class="bg-white text-gray-900 px-16 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                <button class="absolute inset-y-0 right-0 px-4 py-2 text-white bg-blue-600 rounded-r-md hover:bg-blue-700">
+                    <!-- Search Icon -->
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
+                    </svg>
+                </button>
+            </div>
+            <a href="#" class="text-black px-4 py-2 rounded-lg hover:bg-gray-300"><b>Log in</b></a>
+            <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"><b>Sign Up</b></a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <h1 style="margin-top:8rem; font-size: 3rem; text-align: left; padding-left: 3rem; margin-bottom: 0rem;">Learning Pathway</h1>
+
+    <div class="learning-path-container">
+        <div class="learning-path-container">
+            <!-- Domain: NodeJS -->
+            <div class="domain">
+                <h2>NodeJS</h2>
+                <div class="course-list">
+                    <div class="course-card">
+                        <h3>Learn and Understand NodeJS</h3>
+                        <div class="description">
+                            <p>Understand the core concepts of NodeJS.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/understand-nodejs/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>The Complete Node.js Developer Course</h3>
+                        <div class="description">
+                            <p>A comprehensive guide to becoming a Node.js developer.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/the-complete-nodejs-developer-course-2/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Node.js, Express, MongoDB Bootcamp</h3>
+                        <div class="description">
+                            <p>Learn how to create back-end applications using Node.js, Express, and MongoDB.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Node with React: Fullstack Development</h3>
+                        <div class="description">
+                            <p>Learn how to integrate Node.js with React to build fullstack web applications.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/node-with-react-fullstack-web-development/'">Go to Course</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Domain: JavaScript -->
+            <div class="domain">
+                <h2>JavaScript</h2>
+                <div class="course-list">
+                    <div class="course-card">
+                        <h3>JavaScript for Beginners</h3>
+                        <div class="description">
+                            <p>A complete introduction to JavaScript for beginners.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/javascript-for-beginners-the-complete-introduction-to-js/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Master JavaScript: Basics to Advanced</h3>
+                        <div class="description">
+                            <p>Learn JavaScript from the basics to advanced concepts.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/javascript-basics-to-advanced/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>JavaScript: Understanding the Weird Parts</h3>
+                        <div class="description">
+                            <p>Dive deep into JavaScript's unique and advanced parts.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/understand-javascript/'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Modern JavaScript From The Beginning</h3>
+                        <div class="description">
+                            <p>Master modern JavaScript, starting from the basics to the latest features.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.udemy.com/course/modern-javascript-from-the-beginning/'">Go to Course</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Domain: Basic HTML and CSS -->
+            <div class="domain">
+                <h2>Basic HTML and CSS</h2>
+                <div class="course-list">
+                    <div class="course-card">
+                        <h3>HTML and CSS in Depth</h3>
+                        <div class="description">
+                            <p>Learn HTML and CSS thoroughly, with hands-on projects.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/html-and-css-in-depth'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>HTML, CSS, and JavaScript for Web Developers</h3>
+                        <div class="description">
+                            <p>Understand the fundamentals of web development using HTML, CSS, and JavaScript.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/html-css-javascript-for-web-developers'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Learn HTML and CSS</h3>
+                        <div class="description">
+                            <p>Begin your journey with HTML and CSS through this comprehensive course.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/learn-html-and-css'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Introduction to CSS3</h3>
+                        <div class="description">
+                            <p>Get an introduction to advanced CSS concepts and techniques.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/introcss'">Go to Course</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="domain">
+                <h2>MongoDB</h2>
+                <div class="course-list">
+                    <div class="course-card">
+                        <h3>Introduction to MongoDB</h3>
+                        <div class="description">
+                            <p>Get started with MongoDB and learn its fundamental concepts.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/introduction-to-mongodb'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>Node.js & MongoDB: Developing Back-end Database Applications</h3>
+                        <div class="description">
+                            <p>Develop back-end applications with Node.js and MongoDB.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://coursera.org/learn/intermediate-back-end-development-with-node-js-mongodb'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>MongoDB Aggregation Framework</h3>
+                        <div class="description">
+                            <p>Learn to use the MongoDB Aggregation Framework for data analysis.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://www.coursera.org/learn/mongodb-aggregation-framework'">Go to Course</button>
+                        </div>
+                    </div>
+                    <div class="course-card">
+                        <h3>ILT: MDB100: MongoDB Database and Security</h3>
+                        <div class="description">
+                            <p>Understand MongoDB database management and security practices.</p>
+                        </div>
+                        <div class="button-container">
+                            <button onclick="location.href='https://learn.mongodb.com/courses/mdb100-mongodb-database-and-security'">Go to Course</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        <!-- Add more domains similarly if needed -->
+    </div>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
