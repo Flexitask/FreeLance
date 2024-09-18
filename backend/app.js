@@ -297,6 +297,7 @@ app
           email: user.email,
           password: user.password,
           category: category,
+          _id: user._id,
         },
         process.env.JWT_KEY,
         {
@@ -330,5 +331,99 @@ app.route("/logout").get(verifyToken, (req, res, next) => {
   return res.status(200).json({ message: "Logged out successfully" });
 });
 
-app.route("");
+app.put("/dev/update/overview", verifyToken, async (req, res) => {
+  try {
+    const { title, tags, keywords, category } = req.body;
+    const token = req.cookies.TOKEN;
+    const decode = jwt.verify(token, process.env.JWT_KEY);
+    const user = await developer.findOne({ _id: decode._id });
+
+    if (!user) return res.status(404).redirect("/login");
+
+    user.title = title;
+    user.tags = tags;
+    user.keywords = keywords;
+    user.category = category;
+
+    await user.save();
+    return res.redirect("/dev/update/pricing");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/dev/update/overview", verifyToken, (req, res) => {
+  try {
+    res.sendFile(app.get("frontend") + "/Developer/devprofile.html");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+app
+  .route("/dev/update/pricing")
+  .get((req, res) => {
+    try {
+      res.sendFile(app.get("frontend") + "/Developer/devpricing.html");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  })
+  .put(verifyToken, async (req, res) => {
+    try {
+      const { pricing, description } = req.body;
+      const token = req.cookies.TOKEN;
+      const decode = jwt.verify(token, process.env.JWT_KEY);
+      const user = await developer.findOne({ _id: decode._id });
+
+      if (!user) return res.status(404).redirect("/login");
+
+      if (!user.title) return res.status(404).redirect("/dev/update/overview");
+
+      user.pricing = pricing;
+      user.description = description;
+
+      await user.save();
+      return res.redirect("/dev/update/gallery");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  });
+
+app
+  .route("/dev/update/gallery")
+  .get((req, res) => {
+    try {
+      res.sendFile(app.get("frontend") + "/Developer/devgallery.html");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  })
+  .put(verifyToken, upload.array("images", 5), async (req, res) => {
+    try {
+      const token = req.cookies.TOKEN;
+      const decode = jwt.verify(token, process.env.JWT_KEY);
+      const user = await developer.findOne({ _id: decode._id });
+
+      if (!user) return res.status(404).redirect("/login");
+
+      if (!user.title) return res.status(404).redirect("/dev/update/overview");
+      if (!user.pricing) return res.status(404).redirect("/dev/update/pricing");
+
+      const images = req.files.map((file) => file.path);
+      user.image = [...images];
+
+      await user.save();
+      return res.redirect("/dev/dashboard");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  });
+
 app.listen(3000);

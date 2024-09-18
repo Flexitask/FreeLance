@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Chat= require("./Chat");
+const Chat = require("./Chat");
 const Category = require("./category");
 const { description } = require("../schema_validation/signup");
 
@@ -15,7 +15,6 @@ const DeveloperSchema = new Schema({
       Date: Schema.Types.Date,
     },
   ],
-
   email: {
     type: String,
     required: true,
@@ -28,11 +27,14 @@ const DeveloperSchema = new Schema({
   rating: {
     type: Number,
   },
-  description:{
-    type:String
+  description: {
+    type: String,
   },
-  pricing:{
-    type:Number
+  title: {
+    type: String,
+  },
+  pricing: {
+    type: Number,
   },
   //rest is the relationship with other schemas
   courses: [
@@ -45,14 +47,20 @@ const DeveloperSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Project",
-    }],
-    image :{
-        type : String,
     },
-   Category:{
-    type: Schema.Types.ObjectId,
-    ref:"category"
-   },
+  ],
+  image: [
+    {
+      type: String,
+    },
+  ],
+  // Category: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "category",
+  // },
+  category: {
+    type: String,
+  },
   messages: [
     {
       type: Schema.Types.ObjectId,
@@ -65,14 +73,23 @@ const DeveloperSchema = new Schema({
       ref: "Client",
     },
   ],
+  tags: [
+    {
+      type: String,
+    },
+  ],
+  keywords: [
+    {
+      type: String,
+    },
+  ],
 });
 
-
-DeveloperSchema.post("findOneAndDelete",async (Developer)=>{
-    if(Developer){
-        await Chat.deleteMany({_id : {$in: Developer.messages}});
-    }
-}) // to automatically delete all the messages on deletion of developer profile
+DeveloperSchema.post("findOneAndDelete", async (Developer) => {
+  if (Developer) {
+    await Chat.deleteMany({ _id: { $in: Developer.messages } });
+  }
+}); // to automatically delete all the messages on deletion of developer profile
 
 const Developer = mongoose.model("Developer", DeveloperSchema);
 module.exports = Developer;
