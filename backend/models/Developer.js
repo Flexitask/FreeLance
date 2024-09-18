@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Chat= require("./Chat");
+const Category = require("./category");
+const { description } = require("../schema_validation/signup");
 
 const DeveloperSchema = new Schema({
   username: {
@@ -13,6 +15,7 @@ const DeveloperSchema = new Schema({
       Date: Schema.Types.Date,
     },
   ],
+
   email: {
     type: String,
     required: true,
@@ -25,7 +28,12 @@ const DeveloperSchema = new Schema({
   rating: {
     type: Number,
   },
-
+  description:{
+    type:String
+  },
+  pricing:{
+    type:Number
+  },
   //rest is the relationship with other schemas
   courses: [
     {
@@ -41,7 +49,10 @@ const DeveloperSchema = new Schema({
     image :{
         type : String,
     },
-   
+   Category:{
+    type: Schema.Types.ObjectId,
+    ref:"category"
+   },
   messages: [
     {
       type: Schema.Types.ObjectId,

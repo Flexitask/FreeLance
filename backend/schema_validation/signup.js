@@ -12,4 +12,4 @@ let signin=zod.object({
     lastname:zod.string().min(2,"last name should be atleast of 2 charcacters long")
     .max(15,"maximum of 15 charcter allowed")
 })
-module.export=signin;
+module.exports=signin;
