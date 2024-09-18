@@ -24,7 +24,7 @@ let app = express();
 app.set("frontend", path.join(__dirname, "../frontend"));
 app.use(express.json());
 app.use(cors());
-app.use(cookie(process.env.COOKIE_KEY));
+app.use(cookie("asdfghjk"));
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/api/search/:name", async (req, res) => {
@@ -144,7 +144,7 @@ app
           password: newUser.password,
           category:category,
         },
-        process.env.JWT_KEY,
+        "qwertyui",
         {
           expiresIn: "1d",
         }
@@ -157,7 +157,7 @@ app
         httpOnly: true,
         signed: true,
         expires,
-        domain: process.env.BACKEND_DOMAIN,
+        domain: "localhost",
         // sameSite, secure
       });
 
@@ -217,7 +217,7 @@ app
           password: user.password,
           category:category,
         },
-        process.env.JWT_KEY,
+        "qwertyui",
         {
           expiresIn: "1d",
         }
@@ -230,7 +230,7 @@ app
         httpOnly: true,
         signed: true,
         expires,
-        domain: process.env.BACKEND_DOMAIN,
+        domain: "localhost",
         // sameSite, secure
       });
       console.log("token generated successfully 4");
