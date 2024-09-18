@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Payment Form</h1>
+        <form id="paymentForm">
+          <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount (in INR):</label>
+            <input type="number" id="amount" placeholder="Enter amount" required>
+          </div>
+          <button type="button" id="payBtn">Pay Now</button>
+        </form>
+    
+        <div id="paymentDetails" class="hidden">
+          <h2>Payment Details</h2>
+          <div id="detailsCard">
+            <!-- Payment details will be populated here -->
+          </div>
+        </div>
+      </div>
+    
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <script>
+        document.getElementById('payBtn').addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const amount = document.getElementById('amount').value;
+
+        if (!name || !email || !amount) {
+            alert('Please fill all fields');
+            return;
+        }
+
+    try {
+      // Request backend to create an order
+      const response = await fetch('http://localhost:3000/api/checkout', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              amount: amount*100 , 
+              currency: 'INR',
+          }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+      
+      if (!response.ok) {
+          throw new Error(data.error || 'Order creation failed');
+      }
+      const getkey=await fetch('http://localhost:3000/api/getkey',{
+        method:'GET',
+        headers:{
+            'Content-Type': 'application/json',
+        }
+      })
+      const key=await getkey.json().key;
+     console.log(key)
+
+      const options = {
+          key:key,
+          amount: data.order.amount,
+          currency: data.order.currency,
+          name: 'FlexiTask',
+          description: 'Test Transaction',
+          image: 'https://your-logo-url.com/logo.png', 
+          order_id: data.order.id,
+          handler: async function (response) {
+              // Verify payment on the server
+              const verifyResponse = await fetch('http://localhost:3000/api/paymentverification', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_signature: response.razorpay_signature,
+                      
+                  }),
+              });
+
+              const verifyData = await verifyResponse.json();
+
+              if (verifyResponse.ok) {
+                //   document.getElementById('paymentDetails').classList.remove('hidden');
+                //   document.getElementById('detailsCard').innerHTML = `
+                //       <p><strong>Payment ID:</strong> ${response.razorpay_payment_id}</p>
+                //       <p><strong>Order ID:</strong> ${response.razorpay_order_id}</p>
+                //       <p><strong>Signature:</strong> ${response.razorpay_signature}</p>
+                //   `;
+                fetch('http://localhost:3000/api/payment-details', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_signature: response.razorpay_signature,
+                      order:data.order,
+                  }),
+            })
+              } else {
+                  alert('Payment verification failed!');
+              }
+          },
+          prefill: {
+              name: name,
+              email: email,
+          },
+          theme: {
+              color: '#121212',
+          },
+      };
+
+      const paymentGateway = new Razorpay(options);
+      paymentGateway.open();
+  } catch (error) {
+      console.error('Error:', error.message);
+      alert('Payment failed! Please try again.');
+  }
+});
+    </script>
+</body>
+</html>
