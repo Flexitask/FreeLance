@@ -1,0 +1,11 @@
+app_dev: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612335/FlexiTask/xvruffmjtvb0xrg6smzk.png"
+
+developer: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612385/FlexiTask/b8wnikorcooq2u536ml3.png"
+
+logo : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612441/FlexiTask/jtccrr3wlvfvzbaielvs.png"
+
+des1: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612490/FlexiTask/bsqpxtxaj7hxictjyzhr.png"
+
+des2: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612520/FlexiTask/aplbykderpgmuh1jybm7.png"
+
+dummy : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726614133/FlexiTask/l17s2wzmfukzgtltblvi.webp"

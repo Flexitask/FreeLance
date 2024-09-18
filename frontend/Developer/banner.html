@@ -10,26 +10,19 @@
 <div class="row">
     <div class="col-8 offset-2">
         <br><br>
-    <h1>Join us today!!</h1>
-    <form method="post" action="/signup" novalidate class="needs-validation">
+    <form novalidate class="needs-validation">
         <div class="mb-3">
-            <label for="email" class="form-label">E-mail: </label>
-            <input name="email" placeholder="enter your email" class="form-control" required>
-            <!-- <div class="valid-feedback">
-                Title Looks Good!
-            </div> -->
+            <label for="title" class="form-label">Title</label>
+            <input name="dev[title]" placeholder="Enter a title to your profile" type="text" class="form-control" required>
+    
         </div>
         <div class="mb-3">
-            <label for="username" class="form-label">Username: </label>
-            <input name="username" placeholder="enter username" class="form-control" type="text" required>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Enter Password: </label>
-            <input name="password" placeholder="enter password" class="form-control" type="password" required>
+            <label for="tags" class="form-label">Title</label>
+            <input name="dev[tags]" placeholder="Enter keywords to your profile" type="text" class="form-control" required>
         </div>
         <div class="input-group mb-3">
             <label class="input-group-text" for="category">Category</label>
-            <select name="category" class="form-select" id="inputGroupSelect01">
+            <select name="dev[category]" class="form-select" id="inputGroupSelect01">
               <option selected>Choose what defines you</option>
               <option value="admin">Admin</option>
               <option value="developer">Developer</option>
@@ -37,7 +30,7 @@
             </select>
         </div>
         <br>
-        <button class="btn btn-dark add-btn">Sign-up</button>
+        <button class="btn btn-dark add-btn">Update Profile</button>
         <br><br>
     </form>
     </div>

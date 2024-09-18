@@ -63,7 +63,17 @@ app
     console.log(updateUser);
     res.send("User updated");
   });
+// cloud
+app
+  .route("/cloudi")
+  .get((req,res)=>{
+    res.sendFile(app.get("frontend")+"/static/form.html");
+  })
+  .post(upload.single("image"), async (req,res)=>{
+    res.send(req.file.path);
+  })
 
+//cloud
 app
   .route("/signup")
   .get((req, res) => {
@@ -71,8 +81,12 @@ app
     res.sendFile(app.get("frontend")+"/auth/signup.html");
   })
   .post(async (req, res) => {
-    const { user, password, email} = req.body;
-    const category = req.body.category;
+    const { username, password, email,category} = req.body;
+    console.log(req.body);
+    console.log("PAss: ", req.body.password);
+    console.log("mail: ", req.body.email);
+    console.log("user: ", req.body.username);
+    
     const response = signup.safeParse(req.body);
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -89,7 +103,7 @@ app
         check = await developer.findOne({ email });
         if (!check) {
           newUser = new developer({
-            username: user,
+            username,
             email,
             password: hashedPassword,
           });
@@ -98,7 +112,7 @@ app
         check = await client.findOne({ email });
         if (!check) {
           newUser = new client({
-            username: user,
+            username,
             email,
             password: hashedPassword,
           });
@@ -107,7 +121,7 @@ app
         check = await admin.findOne({ email });
         if (!check) {
           newUser = new admin({
-            username: user,
+            username,
             email,
             password: hashedPassword,
           });
@@ -208,7 +222,7 @@ app
           expiresIn: "1d",
         }
       );
-
+      console.log(token)
       const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
       res.cookie("TOKEN", token, {
@@ -230,4 +244,4 @@ app
   });
 
 app.route("");
-app.listen(3000);
+app.listen(8080);
