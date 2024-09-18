@@ -158,6 +158,9 @@ app
     res.send("User updated");
   });
 
+    app.get("/client/dashboard", (req, res) => {
+      res.sendFile(app.get("frontend") + "/clientproject.html"); 
+    })
 app
   .route("/signup")
   .get((req, res) => {
@@ -262,6 +265,7 @@ app
     // if (!token) {
     //   return res.redirect("/signup");
     // }
+    
     try {
       const { email, password } = req.body;
       const category = req.body.category;
@@ -273,8 +277,10 @@ app
 
       let user;
       if (category === "developer") {
+        return res.redirect("/dev/update/overview");
         user = await developer.findOne({ email });
       } else if (category === "client") {
+        return res.redirect("/client/dashboard");
         user = await client.findOne({ email });
       } else if (category === "admin") {
         user = await admin.findOne({ email });
@@ -316,7 +322,8 @@ app
         // sameSite, secure
       });
       console.log("token generated successfully 4");
-      return res.status(200).json({ message: "Login successful", token });
+      // return res.status(200).json({ message: "Login successful", token });
+      res.status(200).redirect("/dev/update/overview");
     } catch (e) {
       console.error(e);
       return res.send("Invalid token, please try again later");
@@ -330,8 +337,11 @@ app.route("/logout").get(verifyToken, (req, res, next) => {
   });
   return res.status(200).json({ message: "Logged out successfully" });
 });
-
+app.get("/dev/dashboard", async (req, res) => {
+    res.sendFile(app.get("frontend") + "/Developer/dashboard.html");
+})
 app.put("/dev/update/overview", verifyToken, async (req, res) => {
+  return res.redirect("/dev/update/pricing");
   try {
     const { title, tags, keywords, category } = req.body;
     const token = req.cookies.TOKEN;
@@ -346,16 +356,16 @@ app.put("/dev/update/overview", verifyToken, async (req, res) => {
     user.category = category;
 
     await user.save();
-    return res.redirect("/dev/update/pricing");
+    // return res.redirect("/dev/update/pricing");
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal Server Error");
   }
 });
 
-app.get("/dev/update/overview", verifyToken, (req, res) => {
+app.get("/dev/update/overview", (req, res) => {
   try {
-    res.sendFile(app.get("frontend") + "/Developer/devprofile.html");
+    res.sendFile(app.get("frontend") + "/Developer/form1.html");
   } catch (error) {
     console.error(error);
     return res.status(500).send("Internal Server Error");
@@ -366,13 +376,14 @@ app
   .route("/dev/update/pricing")
   .get((req, res) => {
     try {
-      res.sendFile(app.get("frontend") + "/Developer/devpricing.html");
+      res.sendFile(app.get("frontend") + "/Developer/form2.html");
     } catch (error) {
       console.error(error);
       return res.status(500).send("Internal Server Error");
     }
   })
   .put(verifyToken, async (req, res) => {
+    return res.redirect("/dev/update/gallery");
     try {
       const { pricing, description } = req.body;
       const token = req.cookies.TOKEN;
@@ -387,7 +398,7 @@ app
       user.description = description;
 
       await user.save();
-      return res.redirect("/dev/update/gallery");
+      // return res.redirect("/dev/update/gallery");
     } catch (error) {
       console.error(error);
       return res.status(500).send("Internal Server Error");
@@ -398,13 +409,14 @@ app
   .route("/dev/update/gallery")
   .get((req, res) => {
     try {
-      res.sendFile(app.get("frontend") + "/Developer/devgallery.html");
+      res.sendFile(app.get("frontend") + "/Developer/form3.html");
     } catch (error) {
       console.error(error);
       return res.status(500).send("Internal Server Error");
     }
   })
   .put(verifyToken, upload.array("images", 5), async (req, res) => {
+    return res.redirect("/dev/dashboard");
     try {
       const token = req.cookies.TOKEN;
       const decode = jwt.verify(token, process.env.JWT_KEY);
@@ -419,7 +431,7 @@ app
       user.image = [...images];
 
       await user.save();
-      return res.redirect("/dev/dashboard");
+      // return res.redirect("/dev/dashboard");
     } catch (error) {
       console.error(error);
       return res.status(500).send("Internal Server Error");
