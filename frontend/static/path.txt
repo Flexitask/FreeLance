@@ -9,3 +9,8 @@ des1: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612490/FlexiTask/b
 des2: "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612520/FlexiTask/aplbykderpgmuh1jybm7.png"
 
 dummy : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726614133/FlexiTask/l17s2wzmfukzgtltblvi.webp"
+
+//about us page:
+top : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726637672/FlexiTask/cnzafz5puloipytiz3cd.png"
+mid : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726637729/FlexiTask/tdf6mjw0einlwbimifs9.png"
+bottom : "https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726637773/FlexiTask/ye1kvpponkcr3opicwht.png"
