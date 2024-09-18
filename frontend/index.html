@@ -1,11 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Flexi Task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+      /* Tailwind doesn't include this utility class by default, so we need to define it */
+      .hidden {
+        display: none;
+      }
+    </style>
 </head>
-<body>
+<style>
+    /* component section */
+/* Initial state: hide extra categories */
+
+#viewMoreBtn {
+
+display: none;
+}
+
+/* Show the button when the screen width is less than 768px and container is scrollable */
+@media (max-width: 768px) {
+#viewMoreBtn {
+  display: block;
+}
+}
+.categories-container {
+max-height: 400px; /* Adjust based on your needs */
+overflow: hidden;
+position: relative;
+}
+
+.category-item {
+flex: 1 0 21%; /* Adjust based on your layout needs */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+.category-item {
+  flex: 1 0 45%;
+}
+}
+
+@media (max-width: 480px) {
+.category-item {
+  flex: 1 0 90%;
+}
+}
+
+/* Show the "View More" button if there are hidden items */
+.view-more {
+display: block;
+}
+
+
+/* Expanded state: show all categories */
+.categories-container.expanded {
+max-height: none;
+}
+
+
+
+/* new css */
+body {
+font-family: 'Arial', sans-serif;
+background-color: #f4f4f4;
+margin: 0;
+padding: 0;
+color: #333;
+overflow-x: hidden; /* Prevent overflow to the right */
+}
+
+/* Header */
+.header {
+background-color: #ffffff;
+padding: 20px;
+text-align: center;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonial Section */
+.testimonial-section {
+background-color: rgb(245, 245, 245);
+padding: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+max-width: 1000px;
+margin: 0 auto;
+
+}
+
+.testimonial-container {
+border-radius: 25px;
+background-color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+max-width: 800px;
+padding: 20px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Side: Testimonial Image */
+.testimonial-image {
+flex: 0 0 150px;
+margin-right: 20px;
+}
+
+.testimonial-image img {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+object-fit: cover;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Right Side: Testimonial Content */
+.testimonial-content {
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+text-align: left;
+}
+
+.testimonial-text {
+font-size: 1.1em;
+margin-bottom: 10px;
+}
+
+.testimonial-author {
+font-weight: bold;
+margin-top: 10px;
+}
+
+/* Slider Controls */
+.slider-controls {
+position: absolute;
+top: 50%;
+right: 20px;
+transform: translateY(-50%);
+display: flex;
+gap: 10px;
+}
+
+
+.prev, .next {
+    border-radius: 10px;
+    /* background-color: #0486ff; */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    cursor: pointer;
+  }
+
+/* Footer */
+.footer {
+background-color: #333;
+color: white;
+padding: 50px 20px;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+
+.footer-column {
+flex-basis: 20%;
+margin-bottom: 20px;
+}
+
+.footer-column h3 {
+margin-bottom: 15px;
+}
+
+.footer-column ul {
+list-style-type: none;
+padding: 0;
+}
+
+.footer-column ul li {
+margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+color: #ffffff;
+text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.testimonial-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.testimonial-image {
+  margin-right: 0;
+  margin-bottom: 20px;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width:90%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+
+
+.footer {
+  flex-direction: column;
+}
+
+.footer-column {
+  flex-basis: 100%;
+}
+}
+</style>
+<body class="bg-gray-100">
+
+    <!-- Fixed Navbar -->
+     <!-- Fixed Navbar -->
+  
+  <!-- Fixed Navbar -->
+  <div class="fixed top-0 left-0 w-full text-black  z-50 bg-gray-100 ">
+    <div class="flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
+      <!-- Logo -->
+      <div class="flex items-center space-x-4 ">
+        <img src="https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612441/FlexiTask/jtccrr3wlvfvzbaielvs.png" alt="Logo" class="w-16 h-16"> <!-- Increased size -->
+      </div>
+
+      <!-- Desktop Navigation Links and Search Bar -->
+      <div class="hidden md:flex items-center space-x-4" >
+        <div class="flex space-x-4" style="justify-items:first baseline;" >
+         <b class="" >
+          <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Home</a>
+          <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">About</a>
+          <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Services</a>
+          <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Contact</a>
+         </b>
+        </div>
+        <div class="relative flex items-center">
+          <input type="text" placeholder="Search" class="bg-white text-gray-900 px-16 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+          <button class="absolute inset-y-0 right-0 px-4 py-2 text-white bg-blue-600 rounded-r-md hover:bg-blue-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path></svg>
+          </button>
+        </div>
+        <a href="#" class="text-black px-4 py-2 rounded-lg hover:bg-gray-300"><b>Log in</b></a>
+
+        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"><b>SignUp</b></a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button id="menu-button" class="text-gray-900 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed top-16 left-0 w-full bg-white shadow-md z-40 md:hidden hidden">
+    <div class="flex flex-col px-6 py-4 mx-auto max-w-7xl">
+      <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Home</a>
+      <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">About</a>
+      <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Services</a>
+      <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-500 ">Contact</a>
+      <div class="relative mt-4">
+        <input type="text" placeholder="Search" class="bg-white text-gray-900 px-16 py-2 rounded-md shadow-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+        <button class="absolute inset-y-0 right-0 px-4 py-2 text-white bg-blue-600 rounded-r-md hover:bg-blue-700">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path></svg>
+        </button>
+      </div>
+      <a href="#" class="text-black px-4 py-2 rounded-lg hover:bg-gray-300"><b>Log in</b></a>
+
+        <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"><b>SignUp</b></a>
+      
+    </div>
+  </div>
+
+    <!-- Hero Section -->
+    <section class="flex flex-col-reverse items-center justify-between px-6 py-16 mx-auto md:flex-row max-w-7xl">
+        <!-- Left Content -->
+        <div class="max-w-xl space-y-6 ">
+            <h1 class="text-5xl font-bold text-gray-900  md:text-left text-center">
+                Empowering Freelancers, <br> Enabling Success
+            </h1>
+            <p class="text-lg text-gray-600  md:text-left text-center">
+                Flexi Task connects talent with opportunity, making every task a step towards your next achievement.
+            </p>
+            <p><a href="#" class=" px-6 py-2 mt-16 text-black   border border-gray-400 rounded-md hover:text-blue-500 ">
+              <b>Explore</b>
+          </a></p>
+          
+        </div>
+
+        <!-- Right Image -->
+        <div class="flex justify-center w-full mt-10 md:mt-0 md:w-1/2">
+            <img src="https://res.cloudinary.com/dpj8xt6rv/image/upload/v1726612385/FlexiTask/b8wnikorcooq2u536ml3.png" alt="Logo" class="w-30 h-30" alt="Freelancer Working" class="w-full h-auto md:w-12/12">
+        </div>
+    </section>
+
+    <!-- Category Section -->
+<!-- Category Section with single-row, smaller items -->
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Explore Categories</h2>
+      
+      <div class="categories-container flex flex-wrap justify-center gap-4 overflow-hidden">
+        <!-- Category 1 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="/images/app-development.png" alt="Web Development Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Web Development</h3>
+        </div>
+  
+        <!-- Category 2 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/seo.png" alt="SEO Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">SEO</h3>
+        </div>
+  
+        <!-- Category 3 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/content.png" alt="Content Writing Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Content Writing</h3>
+        </div>
+  
+        <!-- Category 4 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/graphic-design.png" alt="Graphic Design Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Graphic Design</h3>
+        </div>
+  
+        <!-- Category 5 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/marketing.png" alt="Digital Marketing Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Digital Marketing</h3>
+        </div>
+  
+        <!-- Category 6 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/data-science.png" alt="Data Science Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Data Science</h3>
+        </div>
+  
+        <!-- Category 7 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/accounting.png" alt="Accounting Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Accounting</h3>
+        </div>
+  
+        <!-- Category 8 -->
+        <div class="category-item bg-white w-40 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+          <div class="mb-4">
+            <img src="https://img.icons8.com/clouds/100/000000/translation.png" alt="Translation Icon" class="h-12 w-12">
+          </div>
+          <h3 class="text-sm font-semibold text-gray-800 text-center">Translation</h3>
+        </div>
+      </div>
+  
+      <!-- View More Button -->
+      <div class="flex justify-center ">
+        <button id="viewMoreBtn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300">View More</button>
+      </div>
+    </div>
+  </section>x
+    <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Testimonials</h2>
+    <div class="testimonial-section">
+      <div class="testimonial-container">
+        <!-- Testimonial Image -->
+        <div class="testimonial-image">
+          <img src="https://via.placeholder.com/150" alt="Testimonial Author">
+        </div>
+  
+        <!-- Testimonial Content -->
+        <div class="testimonial-content">
+          <div class="testimonial-text">"It's extremely exciting that Flexi Task has freelancers from all over the world — it broadens the talent pool. One of the best things about Flexi Task is that while we're sleeping, someone's working."</div>
+          <div class="testimonial-author">Jammy Lanister, Co-Founder, Root</div>
+        </div>
+  
+        <!-- Slider Controls -->
+        <div class="slider-controls">
+            <button class="prev"> </button>
+            <button class="next"> </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-column">
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="#">Graphics & Design</a></li>
+          <li><a href="#">Digital Marketing</a></li>
+          <li><a href="#">Writing & Translation</a></li>
+          <li><a href="#">Video & Animation</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press & News</a></li>
+          <li><a href="#">Partnerships</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help & Support</a></li>
+          <li><a href="#">Trust & Safety</a></li>
+          <li><a href="#">Buying on Fiverr</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Community</h3>
+        <ul>
+          <li><a href="#">Customer Stories</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Business Solutions</h3>
+        <ul>
+          <li><a href="#">Fiverr Pro</a></li>
+          <li><a href="#">Fiverr Enterprise</a></li>
+          <li><a href="#">Become an Agency</a></li>
+        </ul>
+      </div>
+    </footer>
+<script>    
+document.addEventListener('DOMContentLoaded', () => {
+    const viewMoreBtn = document.getElementById('viewMoreBtn');
+    const categoriesContainer = document.querySelector('.categories-container');
     
+    // Show more categories when the button is clicked
+    viewMoreBtn.addEventListener('click', () => {
+      categoriesContainer.classList.toggle('expanded');
+      
+      // Change button text based on state
+      if (categoriesContainer.classList.contains('expanded')) {
+        viewMoreBtn.textContent = 'View Less';
+      } else {
+        viewMoreBtn.textContent = 'View More';
+      }
+    });
+  });
+  
+   // JavaScript to toggle the mobile menu
+   document.getElementById('menu-button').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  
+  
+    // JavaScript for Testimonial Slider
+          
+    let currentTestimonial = 0;
+      const testimonialImages = [
+        'https://via.placeholder.com/150',
+        'https://via.placeholder.com/150/111',
+        'https://via.placeholder.com/150/222'
+      ];
+  
+      const testimonialAuthors = [
+        'Kay Kim, Co-Founder, Rooted',
+        'John Doe, Designer',
+        'Jane Smith, Developer'
+      ];
+  
+      const testimonialTexts = [
+        'It\'s extremely exciting that Fiverr has freelancers from all over the world — it broadens the talent pool. One of the best things about Fiverr is that while we\'re sleeping, someone\'s working.',
+        'Fiverr allowed me to focus on my passion while reaching clients globally. A game changer for freelancers.',
+        'I love the flexibility Fiverr gives to freelancers. I can work on my own schedule.'
+      ];
+  
+      const testimonialDetails = [
+        'Rooted | Plant Delivery Service',
+        'John Doe | Freelance Designer',
+        'Jane Smith | Web Developer'
+      ];
+  
+      function showTestimonial(index) {
+        const testimonialImage = document.querySelector('.testimonial-image img');
+        const testimonialText = document.querySelector('.testimonial-text');
+        const testimonialAuthor = document.querySelector('.testimonial-author');
+        const testimonialDetail = document.querySelector('.testimonial-details');
+  
+        testimonialImage.src = testimonialImages[index];
+        testimonialText.textContent = testimonialTexts[index];
+        testimonialAuthor.textContent = testimonialAuthors[index];
+        testimonialDetail.textContent = testimonialDetails[index];
+      }
+  
+      function nextTestimonial() {
+        currentTestimonial = (currentTestimonial + 1) % testimonialTexts.length;
+        showTestimonial(currentTestimonial);
+      }
+      function prevTestimonial() {
+          currentTestimonial = (currentTestimonial - 1 + testimonialTexts.length) % testimonialTexts.length;
+          showTestimonial(currentTestimonial);
+        }
+        
+        // Event listeners for the Next and Prev buttons
+        document.querySelector('.next').addEventListener('click', nextTestimonial);
+        document.querySelector('.prev').addEventListener('click', prevTestimonial);
+        
+        // Automatically switch testimonials every 5 seconds
+        setInterval(nextTestimonial, 5000);
+        
+        // Initial call to show the first testimonial on page load
+        showTestimonial(currentTestimonial);
+
+    </script>
 </body>
+
 </html>

@@ -26,7 +26,7 @@ const PaymentSchema = new Schema({
     },
     platformfee : {
         type : Number, 
-        required : true,
+        default: 3,
     }
 })
 
